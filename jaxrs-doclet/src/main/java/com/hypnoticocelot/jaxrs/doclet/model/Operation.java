@@ -10,60 +10,60 @@ import static com.google.common.base.Strings.emptyToNull;
 
 public class Operation {
 
-    private HttpMethod httpMethod;
-    private String nickname;
-    private String responseClass; // void, primitive, complex or a container
-    private List<ApiParameter> parameters;
-    private String summary; // cap at 60 characters for readability in the UI
-    private String notes;
+	private HttpMethod httpMethod;
+	private String nickname;
+	private String responseClass; // void, primitive, complex or a container
+	private List<ApiParameter> parameters;
+	private String summary; // cap at 60 characters for readability in the UI
+	private String notes;
 
     @JsonProperty("errorResponses")                    // swagger 1.1 name
-    private List<ApiResponseMessage> responseMessages; // swagger 1.2 name
+	private List<ApiResponseMessage> responseMessages; // swagger 1.2 name
 
-    @SuppressWarnings("unused")
-    private Operation() {
-    }
+	@SuppressWarnings("unused")
+	private Operation() {
+	}
 
-    public Operation(Method method) {
-        this.httpMethod = method.getMethod();
-        this.nickname = emptyToNull(method.getMethodName());
-        this.responseClass = emptyToNull(AnnotationHelper.typeOf(method.getReturnType()));
-        this.parameters = method.getParameters().isEmpty() ? null : method.getParameters();
-        this.responseMessages = method.getResponseMessages().isEmpty() ? null : method.getResponseMessages();
-        this.summary = emptyToNull(method.getFirstSentence());
-        this.notes = emptyToNull(method.getComment());
-    }
+	public Operation(Method method) {
+		this.httpMethod = method.getMethod();
+		this.nickname = emptyToNull(method.getMethodName());
+        this.responseClass = emptyToNull(method.getReturnType());
+		this.parameters = method.getParameters().isEmpty() ? null : method.getParameters();
+		this.responseMessages = method.getResponseMessages().isEmpty() ? null : method.getResponseMessages();
+		this.summary = emptyToNull(method.getFirstSentence());
+		this.notes = emptyToNull(method.getComment());
+	}
 
-    public HttpMethod getHttpMethod() {
-        return httpMethod;
-    }
+	public HttpMethod getHttpMethod() {
+		return httpMethod;
+	}
 
-    public String getNickname() {
-        return nickname;
-    }
+	public String getNickname() {
+		return nickname;
+	}
 
-    public String getResponseClass() {
-        return responseClass;
-    }
+	public String getResponseClass() {
+		return responseClass;
+	}
 
-    public List<ApiParameter> getParameters() {
-        return parameters;
-    }
-    
-    public List<ApiResponseMessage> getResponseMessages() {
-        return responseMessages;
-    }
+	public List<ApiParameter> getParameters() {
+		return parameters;
+	}
 
-    public String getSummary() {
-        return summary;
-    }
+	public List<ApiResponseMessage> getResponseMessages() {
+		return responseMessages;
+	}
 
-    public String getNotes() {
-        return notes;
-    }
+	public String getSummary() {
+		return summary;
+	}
 
-    @Override
-    public boolean equals(Object o) {
+	public String getNotes() {
+		return notes;
+	}
+
+	@Override
+	public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Operation that = (Operation) o;
@@ -74,15 +74,15 @@ public class Operation {
                 && Objects.equal(responseMessages, that.responseMessages)
                 && Objects.equal(summary, that.summary)
                 && Objects.equal(notes, that.notes);
-    }
+	}
 
-    @Override
-    public int hashCode() {
-        return Objects.hashCode(httpMethod, nickname, responseClass, parameters, responseMessages, summary, notes);
-    }
+	@Override
+	public int hashCode() {
+		return Objects.hashCode(httpMethod, nickname, responseClass, parameters, responseMessages, summary, notes);
+	}
 
-    @Override
-    public String toString() {
+	@Override
+	public String toString() {
         return Objects.toStringHelper(this)
                 .add("httpMethod", httpMethod)
                 .add("nickname", nickname)
@@ -92,5 +92,5 @@ public class Operation {
                 .add("summary", summary)
                 .add("notes", notes)
                 .toString();
-    }
+	}
 }
